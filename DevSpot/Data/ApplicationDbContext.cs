@@ -5,7 +5,7 @@ namespace DevSpot.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        public ApplicationDbContextDbC(DbContextOptions<ApplicationDbContext> options) :
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
             base(options)
         {
             

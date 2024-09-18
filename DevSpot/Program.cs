@@ -41,6 +41,7 @@ namespace DevSpot
                 var services = scope.ServiceProvider;
 
                 RoleSeeder.SeedRolesAsync(services).Wait();
+                UserSeeder.SeedUsersAsync(services).Wait();
 
             }
             app.UseHttpsRedirection();

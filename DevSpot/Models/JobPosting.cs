@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DevSpot.Models
 {
@@ -16,6 +18,9 @@ namespace DevSpot.Models
         public string Location { get; set; }
         public DateTime PostedDate { get; set; } = DateTime.UtcNow;
         public bool IsApproved { get; set; }
+        [Required]
         public string UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public IdentityUser User { get; set; }
     }
 }

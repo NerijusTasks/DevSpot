@@ -1,6 +1,7 @@
 ﻿
 using DevSpot.Data;
 using DevSpot.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevSpot.Repositories
 {
@@ -11,29 +12,47 @@ namespace DevSpot.Repositories
         {
             _context = context;
         }
-        public Task AddAsync(JobPosting entity)
+        public async Task AddAsync(JobPosting entity)
         {
-            throw new NotImplementedException();
+            await _context.JobPosts.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var jobPosting = await _context.JobPosts.FindAsync(id);
+
+            if (jobPosting == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            _context.JobPosts.Remove(jobPosting);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<JobPosting>> GetAllAsync()
+        public async Task<IEnumerable<JobPosting>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.JobPosts.ToListAsync();
         }
 
-        public Task<JobPosting> GetByIdAsinc(int id)
+        public async Task<JobPosting> GetByIdAsinc(int id)
         {
-            throw new NotImplementedException();
+            var jobPosting = await _context.JobPosts.FindAsync(id);
+
+            if (jobPosting == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            
+            return jobPosting;
+
         }
 
-        public Task Updateasync(JobPosting entity)
+        public async Task Updateasync(JobPosting entity)
         {
-            throw new NotImplementedException();
+             _context.JobPosts.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

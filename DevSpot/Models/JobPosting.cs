@@ -11,7 +11,7 @@ namespace DevSpot.Models
         [Required]
         public string Title { get; set; }
         [Required]
-        public string Descriptio { get; set; }
+        public string Description { get; set; }
         [Required]
         public string Company { get; set; }
         [Required]

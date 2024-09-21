@@ -160,5 +160,30 @@ namespace DevSpot.Tests
             Assert.NotNull( result );
             Assert.Equal("Updated Description", result.Description);
         }
+
+        [Fact]
+        public async Task DeleteAsync_ShouldDeleteJobPosting()
+        {
+            var db = CreateDbContext();
+            var repository = new JobPostingRepository(db);
+
+            var jobPosting = new JobPosting
+            {
+                Title = "Test Title 2",
+                Description = "Test Description 2",
+                PostedDate = DateTime.Now,
+                Company = "Test Compaby 2",
+                Location = "Test Location 2",
+                UserId = "TestUserId 2"
+            };
+
+            await db.JobPosts.AddAsync(jobPosting);
+            await db.SaveChangesAsync();
+
+            await repository.DeleteAsync(jobPosting.Id);
+            var result = db.JobPosts.Find(jobPosting.Id);
+
+            Assert.Null(result);
+        }
     }
 }

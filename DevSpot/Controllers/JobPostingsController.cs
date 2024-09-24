@@ -1,11 +1,13 @@
 ﻿using DevSpot.Models;
 using DevSpot.Repositories;
 using DevSpot.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevSpot.Controllers
 {
+    [Authorize]
     public class JobPostingsController : Controller
     {
         private readonly IRepository<JobPosting> _repository;
@@ -18,12 +20,14 @@ namespace DevSpot.Controllers
             _userManager = userManager;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var jobPostings = await _repository.GetAllAsync();
             return View(jobPostings);
         }
 
+        [Authorize(Roles = "Admin, Employer")]
         public IActionResult Create()
         {
             return View();

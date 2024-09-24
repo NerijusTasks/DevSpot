@@ -1,6 +1,22 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<h1>Job</h1>
+﻿@model IEnumerable<JobPosting>
+
+<h1 class="text-center m-5">All Developer Jobs</h1>
+
+<div class="list-group">
+
+    @foreach(var jobPostings in Model)
+    {
+        <div class="list-group-item">
+            <h3>@jobPostings.Title</h3>
+            <p>@jobPostings.Description</p>
+            <p><strong>Company:</strong> @jobPostings.Company</p>
+            <p><strong>Location:</strong> @jobPostings.Location</p>
+            <p><strong>Posted Date:</strong> @jobPostings.PostedDate.ToShortDateString()</p>
+
+        </div>
+
+
+        
+    }
+
+</div>

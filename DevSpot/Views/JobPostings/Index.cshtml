@@ -1,4 +1,5 @@
-﻿@model IEnumerable<JobPosting>
+﻿@using DevSpot.Constants
+@model IEnumerable<JobPosting>
 
 <h1 class="text-center m-5">All Developer Jobs</h1>
 
@@ -13,10 +14,24 @@
             <p><strong>Location:</strong> @jobPostings.Location</p>
             <p><strong>Posted Date:</strong> @jobPostings.PostedDate.ToShortDateString()</p>
 
+            @if(User.IsInRole(Roles.Admin) || User.IsInRole(Roles.Employer))
+            {
+                <div>
+                    <button onclick="deleteJobPosting(@jobPostings.Id)" class="btn btn-sm btn-danger">Delete</button>
+                </div>
+            }
         </div>
-
-
-        
     }
-
 </div>
+
+@section Scripts {
+    <script>
+        function deleteJobPosting(id)
+        {
+            if (confirm("Are you sure you want to delete this job posting?")) 
+            {
+
+            }
+        }
+    </script>
+}

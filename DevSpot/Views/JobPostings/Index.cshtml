@@ -7,7 +7,7 @@
 
     @foreach(var jobPostings in Model)
     {
-        <div class="list-group-item">
+        <div class="list-group-item" id="job-posting-@jobPostings.Id">
             <h3>@jobPostings.Title</h3>
             <p>@jobPostings.Description</p>
             <p><strong>Company:</strong> @jobPostings.Company</p>
@@ -30,7 +30,18 @@
         {
             if (confirm("Are you sure you want to delete this job posting?")) 
             {
+                $.ajax({
+                    url: "@Url.Action("Delete", "JobPostings")/" + id,
+                    type: "delete",
+                    success: function (result) { 
+                        $("#job-posting-" + id).remove();
 
+                    },
+                    error: function (err) {
+                        alert("Ann error occured.")
+                    }
+                
+                });
             }
         }
     </script>
